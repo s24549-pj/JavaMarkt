@@ -30,7 +30,6 @@ public class Main {
         Cart cart = new Cart();
         cart.setProducts(productList);
 
-        System.out.println(cart.toString());
 
         System.out.println("Cart after discount: ");
         ICanCalculateSpecialOffer discount300Plus = new Discount300Plus();
@@ -40,6 +39,27 @@ public class Main {
         cart.applyDiscount(thirdForFree);
         cart.applyDiscount(freeCup);
 
+        System.out.println(cart.toString());
+
+
+
+        System.out.println("---------------------------");
+        System.out.println("Before sorting by price:");
+        System.out.println(cart.toString());
+
+        CartService cartService = new CartService();
+        cartService.sortProductsByPrice(productList);
+
+        System.out.println("After sorting by price:");
+        System.out.println(cart.toString());
+
+        System.out.println("---------------------------");
+        System.out.println("Before sorting by name:");
+        System.out.println(cart.toString());
+
+        cartService.sortProductsByName(productList);
+
+        System.out.println("After sorting by name:");
         System.out.println(cart.toString());
 
     }
