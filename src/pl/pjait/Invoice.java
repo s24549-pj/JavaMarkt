@@ -1,22 +1,48 @@
 package pl.pjait;
 
+import java.util.ArrayList;
+
 public class Invoice {
+
+
     private String productName;
     private int productAmonut;
     private double basePriceNetto;
     private double summedPriceNetto = productAmonut * basePriceNetto;
     private double vat;
     private double summedPriceBrutto;
+    private int dateOfInvoice;
+    private int dateOfPayment;
+    private int invoiceNumber;
 
-    public Invoice(String productName, int productAmonut, double basePriceNetto, double summedPriceNetto,
-                   double vat, double summedPriceBrutto) {
-        this.productName = productName;
-        this.productAmonut = productAmonut;
-        this.basePriceNetto = basePriceNetto;
-        this.summedPriceNetto = summedPriceNetto;
-        this.vat = vat;
-        this.summedPriceBrutto = summedPriceBrutto;
+    private ArrayList<InvoicePosition> positions = new ArrayList<>();
+
+    public ArrayList<InvoicePosition> getPositions() {
+        return positions;
     }
+
+    public void addPosition(InvoicePosition position){
+        positions.add(position);
+    }
+
+    public void addPosition(Product product){
+        InvoicePosition position = positionWithProduct(product);
+        if(position == null){
+            addPosition(new InvoicePosition(product));
+            return;
+        }
+        position.setCount(position.getCount()+1);
+    }
+
+    private InvoicePosition positionWithProduct(Product product){
+        for(InvoicePosition position : positions){
+            if (position.getProduct().getCode().equals(product.getCode())){
+                return position;
+            }
+        }
+        return null;
+    }
+
 
     public String getProductName() {
         return productName;
@@ -66,4 +92,27 @@ public class Invoice {
         this.summedPriceBrutto = summedPriceBrutto;
     }
 
+    public int getDateOfInvoice() {
+        return dateOfInvoice;
+    }
+
+    public void setDateOfInvoice(int dateOfInvoice) {
+        this.dateOfInvoice = dateOfInvoice;
+    }
+
+    public int getDateOfPayment() {
+        return dateOfPayment;
+    }
+
+    public void setDateOfPayment(int dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(int invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 }

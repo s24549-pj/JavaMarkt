@@ -1,5 +1,6 @@
 package pl.pjait;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,6 +29,26 @@ public class CartService {
             }
         }
         return temporaryProduct;
+    }
+
+    public List<Product> getNCheapestOne(List<Product> products, int n){
+        sortProductsByPrice(products);
+        List<Product> temporaryList = new ArrayList<>();
+
+        for (int i = 0; i < n; i++){
+            temporaryList.add(products.get(i));
+        }
+        return temporaryList;
+    }
+
+    public List<Product> getNExpensiveOne(List<Product> products, int n){
+        sortProductsByPrice(products);
+        List<Product> temporaryList = new ArrayList<>();
+
+        for (int i = products.size() - 1; i >= products.size() -n; i--){
+            temporaryList.add(products.get(i));
+        }
+        return temporaryList;
     }
 
     public List<Product> sortProductsByName(List<Product> products){

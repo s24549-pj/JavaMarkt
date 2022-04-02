@@ -62,5 +62,53 @@ public class Main {
         System.out.println("After sorting by name:");
         System.out.println(cart.toString());
 
+        System.out.println("---------------------------");
+        int numberOfCheapest = 3;
+        System.out.println("Get " + numberOfCheapest + " cheapest products");
+        System.out.println(cartService.getNCheapestOne(productList, numberOfCheapest));
+
+        System.out.println("---------------------------");
+        int numberOfExpensive = 3;
+        System.out.println("Get " + numberOfExpensive + " expensive products");
+        System.out.println(cartService.getNExpensiveOne(productList, numberOfCheapest));
+
+        System.out.println("---------------------------");
+        System.out.println("Stawka VAT: " + InvoicePosition.TAX_5);
+        System.out.println("Stawka VAT: " + InvoicePosition.TAX_8);
+        System.out.println("Stawka VAT: " + InvoicePosition.TAX_23);
+
+        System.out.println("---------------------------");
+        InvoicePosition position = new InvoicePosition(product);
+        InvoicePosition position2 = new InvoicePosition(product2);
+        Invoice invoice = new Invoice();
+        invoice.addPosition(position);
+        invoice.addPosition(position2);
+        invoice.addPosition(product2);
+        invoice.addPosition(product3);
+        invoice.addPosition(product3);
+        invoice.addPosition(product3);
+
+
+        printoutInvoice(invoice);
+
     }
+
+
+    private static void printoutInvoice(Invoice invoice){
+        System.out.println("|NAZWA\t|ILOSC\t|CENA NETTO\t|CENA BRUTTO\t|STAWKA VAT\t|PODATEK");
+        System.out.println("******************************************************************");
+        for(InvoicePosition p : invoice.getPositions()){
+            System.out.print("|" + p.getProduct().getName() + "\t|");
+            System.out.print(p.getCount() + "\t\t|");
+            System.out.print(p.getNettoPrice() + "\t\t|");
+            System.out.print(p.getGrossPrice() + "\t\t\t|");
+            System.out.print(p.getTax() + "\t\t|");
+            System.out.println(p.getTaxValue());
+            System.out.println("-----------------------------------------------------------------");
+        }
+
+    }
+
+
+
 }
